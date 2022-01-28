@@ -1,0 +1,1 @@
+https://fitdevops.in/how-to-create-s3-buckets-using-terraform/
