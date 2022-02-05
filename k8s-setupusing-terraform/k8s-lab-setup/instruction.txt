@@ -1,0 +1,82 @@
+Use Terraform to Create a Kubernetes Deployment
+Introduction
+Hey there, Gurus! Welcome to the lab! This lab will demonstrate how to set up a small Kubernetes cluster and deploy two NGINX nodes using Terraform. You, as an admin, are being asked to deploy a simple Kubernetes cluster running two NGINX nodes to test out a new web application. You will need to, first, set up the cluster using kind and kubectl, and then use Terraform to deploy the NGINX nodes.
+
+Solution
+Log in to the terminal using the credentials provided in the lab details:
+
+ssh cloud_user@<PUBLIC_IP_ADDRESS>
+Create Your Kubernetes Cluster
+View the contents of your current directory:
+ls
+Change into the lab-deploy-kubernetes directory:
+cd lab-deploy-kubernetes/
+View the contents of the lab-deploy-kubernetes directory:
+ls
+You should see three files: kind-config,yaml, kubernetes.tf, and terraform.tfvars.
+Create your Kubernetes cluster:
+kind create cluster --name lab-terraform-kubernetes --config kind-config.yaml
+When the cluster is successfully created, you should see all the creation steps have green checkmarks, and you receive a 'Have a nice day!' message.
+Copy the provided command and paste it in the terminal:
+kubectl cluster-info --context kind-lab-terraform-kubernetes
+Verify your cluster was created:
+kind get clusters
+Configure Terraform for Use with the Kubernetes Cluster
+Run kubectl to get information about your cluster:
+kubectl config view --minify --flatten --context=kind-lab-terraform-kubernetes
+Add the server address to your terraform.tfvars file:
+Scroll up to the server line and copy the server address.
+Edit the terraform.tfvars file:
+vim terraform.tfvars
+On the host line, enter insert mode and replace DUMMY VALUE with your copied server address.
+Press ESC to exit insert mode, then write and quit to save your changes:
+:wq!
+Add the client certificate data to your terraform.tfvars file:
+Scroll up to the client-certificate-data line and copy the full certificate details.
+Edit the terraform.tfvars file:
+vim terraform.tfvars
+On the client_certificate line, enter insert mode and replace DUMMY VALUE with your copied client certificate data.
+Press ESC to exit insert mode, then write and quit to save your changes:
+:wq!
+Add the client key data to your terraform.tfvars file:
+Scroll up to the client-key-data line and copy the full client key details.
+Edit the terraform.tfvars file:
+vim terraform.tfvars
+On the client_key line, enter insert mode and replace DUMMY VALUE with your copied client key data.
+Press ESC to exist insert mode, then write and quit to save your changes:
+:wq!
+Add the certificate authority data to your terraform.tfvars file:
+Scroll up to the certificate-authority-data line and copy the full certificate authority details.
+Edit the terraform.tfvars file:
+vim terraform.tfvars
+On the cluster_ca_certificate line, enter insert mode and replace DUMMY VALUE with your copied client authority data.
+Press ESC to exit insert mode, then write and quit to save your changes:
+:wq!
+View your kubernetes.tf file:
+vim kubernetes.tf
+You can see this configuration file pulls from the terraform.tfvars file to declare the variables and then pass them to the Kubernetes provider.
+Quit out of the file when you're finished reviewing it:
+:q
+Deploy Resources to the Kubernetes Cluster
+Initialize your working directory:
+
+terraform init
+Download the Terraform configuration file provided in the lab's resources:
+
+wget https://raw.githubusercontent.com/linuxacademy/content-terraform-2021/main/lab_kubernetes_resources.tf
+View the contents of your current directory:
+ls
+You should see a new configuration file called lab_kubernetes_resources.tf.
+View your lab_kubernetes_resources.tf file:
+vim lab_kubernetes_resources.tf
+You have two resources: "kubernetes_deployment" and "nginx", with the name "long-live-the-bat". You also have two replicas. You're using the NGINX 1.7.8 image and a container named "batman".
+Quit out of the file when you're finished reviewing it:
+:q
+Plan your configuration changes:
+terraform plan
+Apply your configuration changes:
+terraform apply
+On the Enter a value line, type "yes" to confirm the apply. The application takes a moment to complete.
+View your deployment details:
+kubectl get deployments
+You should see your deployment, "long-live-the-bat" has two nodes up and running.
