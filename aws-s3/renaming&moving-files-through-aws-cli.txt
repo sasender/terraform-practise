@@ -1,0 +1,4 @@
+https://awsbytes.com/how-to-rename-an-s3-bucket/
+
+
+these is helps to the moving files from one bucket to another bucket through the commnd line 
