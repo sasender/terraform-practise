@@ -4,7 +4,7 @@ terraform {
 
 resource "aws_instance" "ec2_example" {
 
-    ami = "ami-0b49a4a6e8e22fa16"
+    ami = "ami-04505e74c0741db8d"
     instance_type = "t2.micro"
     key_name= "jhon.pem"
     vpc_security_group_ids = [aws_security_group.main.id]
