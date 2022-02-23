@@ -14,3 +14,4 @@ module "apache-webserver-2" {
 
 module "s3-bucket" {
   source = ".//s3"
+}  
