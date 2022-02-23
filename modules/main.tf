@@ -11,3 +11,6 @@ module "apache-webserver-1" {
 module "apache-webserver-2" {
   source = ".//module-2"
 }
+
+module "s3-bucket" {
+  source = ".//s3"

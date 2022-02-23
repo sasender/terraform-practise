@@ -6,11 +6,11 @@ resource "aws_instance" "ec2_example" {
 
     ami = "ami-04505e74c0741db8d"
     instance_type = "t2.micro"
-    key_name= "jhon.pem"
+    key_name= "jhon"
     vpc_security_group_ids = [aws_security_group.main.id]
 
   user_data = <<-EOF
-      #!/bin/sh
+      #!/bin/bash
       sudo apt-get update
       sudo apt install -y apache2
       sudo systemctl status apache2
